@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest,} from 'next/server';
 import {prisma} from '../../../../libs/prisma'
 
-export async function GET(request: NextRequest, {params}) {    
+export async function GET(request: NextRequest, {params}: any ) {    
     const task = await prisma.task.findUnique({
         where: {
             id: +params.id
@@ -10,7 +10,7 @@ export async function GET(request: NextRequest, {params}) {
     return NextResponse.json(task)
 }
 
-export async function PUT(request: NextRequest, {params}) {
+export async function PUT(request: NextRequest, {params}: any) {
 
     const data = await request.json()
 
@@ -25,7 +25,7 @@ export async function PUT(request: NextRequest, {params}) {
     return NextResponse.json(taskUpdated)
 }
 
-export async function DELETE(request: NextRequest, {params}) {
+export async function DELETE(request: NextRequest, {params}: any) {
 
     try {
         const taskRemoved = await prisma.task.delete({
@@ -37,7 +37,7 @@ export async function DELETE(request: NextRequest, {params}) {
         return NextResponse.json(taskRemoved)
         
     } catch (error) {
-        return NextResponse.json(error.message)
+        return NextResponse.json(error)
     }
 
     
